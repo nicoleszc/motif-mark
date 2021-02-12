@@ -4,8 +4,6 @@ Motif Mark is a Python3-based script that allows the user to visualize genes and
 
 ## Output
 ![Alt text](./example_output.svg)
-<img src="./example_output.svg">
-
 
 ## Requirements
 
@@ -21,5 +19,3 @@ To run Motif Mark on your own computer, you will need the following Python modul
 • argparse  
 • re  
 • cairo  
-• math  
-
