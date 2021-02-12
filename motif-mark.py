@@ -7,8 +7,6 @@
 import argparse
 import re
 import cairo
-import math
-import random
 
 # Argparse function
 def get_args():
@@ -19,8 +17,6 @@ def get_args():
 		in lower case and exons are in upper case.')
     parser.add_argument("-m", "--motifs", type=str, required=True, help='Absolute path to text file containing a list of motifs,\
 		where each motif is on a new line. Accepts all IUPAC degenerate base symbols.')
-	#parser.add_argument("-c", "--color", type=str, required=False, help='Optional: Absolute path to text file containing a list of\
-		#motifs, where the intron color is the first line, the exon color is the second line, and the motifs are ')
     args = parser.parse_args()
     return parser.parse_args()
 parse_args = get_args()
@@ -169,7 +165,7 @@ def define_boundaries():
 		if values[1] > longest_gene:
 			longest_gene=values[1]
 	width = longest_gene + 100
-	height = 100*num_genes + 200
+	height = 100*num_genes + 25*len(motif_list)+10
 	return width,height
 
 width,height = define_boundaries()
@@ -197,6 +193,11 @@ def draw_genes():
 	"""
 	surface =  cairo.SVGSurface(image_file,width,height)
 	context = cairo.Context(surface)
+	# Set a background color
+	context.save()
+	context.set_source_rgb(1, 1, 1)
+	context.paint()
+	context.restore()
 	# Set the width of the intron line
 	context.set_line_width(2)
 	# Set starting position of file (set margins)
@@ -207,7 +208,7 @@ def draw_genes():
 		motif_counter=0
 		exon_start=values[0][0]
 		exon_length=values[0][1]-values[0][0]
-		exon_height=len(motif_list)*5+5
+		exon_height=len(motif_list)*5+10
 		# Move to x,y position
 		context.move_to(indent,ypos-exon_height)
 		context.set_source_rgb(0,0,0)
@@ -228,7 +229,7 @@ def draw_genes():
 					# Refer to one motif at a time
 					if conv_motif==item[1]:
 						motif_counter+=1
-						box_height=exon_height-3*motif_counter
+						box_height=exon_height-4*motif_counter
 						# Set color to associated motif color
 						R,G,B=color_dict[conv_motif]
 						# Draw each motif match at a time
