@@ -2,6 +2,10 @@
 
 Motif Mark is a Python3-based script that allows the user to visualize genes and where motifs occur on them. It creates a color-coded image (.svg) using a fasta file and text file of motif sequences.
 
+## Output
+![Image](https://github.com/nicoleszc/motif-mark/edit/main/example_output.svg?raw=true)
+
+
 ## Requirements
 
 Motif Mark requires two files:   
